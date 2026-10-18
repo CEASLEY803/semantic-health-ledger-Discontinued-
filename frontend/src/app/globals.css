@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* ── Design token: wire Tailwind's font-sans utility to Geist Sans ─────────── */
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'Cascadia Code', monospace;
+}
+
+:root {
+  --background: #09090b; /* zinc-950 */
+  --foreground: #d4d4d8; /* zinc-300 */
+}
+
+/* rem baseline: all text-[Xrem] sizes resolve against this.
+   16px gives comfortable readability at 1440p; change here to scale the whole UI. */
+html {
+  font-size: 16px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.9375rem; /* 15px effective; prose text stays readable */
+}
+
+/* Lift the floor on the smallest mono labels used throughout the UI.
+   On 1440p these were rendering at ~9-10 physical px which is hard to read. */
+.font-mono {
+  letter-spacing: 0.02em; /* slightly more open tracking at any size */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Terminal-style scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.15); }
+
+/* Subtle scanline texture on the root adds depth without being garish */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.04) 2px,
+    rgba(0, 0, 0, 0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
